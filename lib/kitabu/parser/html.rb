@@ -102,6 +102,7 @@ module Kitabu
         file_format = format(file)
 
         content = Kitabu::Syntax.render(root_dir, file_format, File.read(file), plain_syntax)
+        content = Kitabu::Callout.render(content)
 
         content = case file_format
         when :markdown
