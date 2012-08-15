@@ -3,7 +3,7 @@ module Kitabu
     class PDF < Base
       def parse
         apply_footnotes!
-        spawn_command ["prince", with_footnotes_file.to_s, "-o", pdf_file.to_s]
+        spawn_command ["prince", with_footnotes_file.to_s, "-o", pdf_file.to_s, "--javascript"]
       end
 
       def apply_footnotes!
