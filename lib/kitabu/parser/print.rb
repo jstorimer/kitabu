@@ -1,0 +1,45 @@
+module Kitabu
+  module Parser
+    class Print < Base
+      def parse
+        apply_print_stylesheet!
+        spawn_command ["prince", with_print_styles_file.to_s, "-o", pdf_file.to_s, "--javascript"]
+      end
+
+      def apply_print_stylesheet!
+        html = Nokogiri::HTML(html_file.read)
+
+        # https://github.com/tenderlove/nokogiri/issues/339
+        html.css("html").first.tap do |element|
+          next unless element
+          element.delete("xmlns")
+          element.delete("xml:lang")
+        end
+
+        head = html.at_css('head')
+
+        style = Nokogiri::XML::Node.new "link", html
+        style['href'] = '../templates/html/print.css'
+        style['rel'] = 'stylesheet'
+        style['type'] = 'text/css'
+
+        head.add_child style
+
+        File.open(with_print_styles_file, "w") {|f| f << html.to_xhtml}
+      end
+
+      def with_print_styles_file
+        root_dir.join("output/#{name}.print.html")
+      end
+
+      def html_file
+        root_dir.join("output/#{name}.html")
+      end
+
+      def pdf_file
+        root_dir.join("output/#{name}.print.pdf")
+      end
+    end
+  end
+end
+

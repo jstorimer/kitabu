@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 module Kitabu
   class Cli < Thor
-    FORMATS = %w[pdf html epub mobi txt]
+    FORMATS = %w[pdf html epub mobi txt print]
     check_unknown_options!
 
     def self.exit_on_failure?

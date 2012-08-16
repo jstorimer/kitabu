@@ -31,6 +31,7 @@ module Kitabu
       export_epub = [nil, "mobi", "epub"].include?(options[:only])
       export_mobi = [nil, "mobi"].include?(options[:only])
       export_txt = [nil, "txt"].include?(options[:only])
+      export_print = [nil, "print"].include?(options[:only])
 
       exported = []
       exported << Parser::HTML.parse(root_dir)
@@ -38,6 +39,7 @@ module Kitabu
       exported << Parser::Epub.parse(root_dir) if export_epub
       exported << Parser::Mobi.parse(root_dir) if export_mobi && Dependency.kindlegen?
       exported << Parser::Txt.parse(root_dir) if export_txt && Dependency.html2text?
+      exported << Parser::Print.parse(root_dir) if export_print && Dependency.prince?
 
       if exported.all?
         color = :green
