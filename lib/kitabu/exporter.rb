@@ -25,7 +25,7 @@ module Kitabu
 
     def export!
       helper = root_dir.join("config/helper.rb")
-      load(helper) if helper.exist?
+      require(helper) if helper.exist?
 
       export_pdf = [nil, "pdf"].include?(options[:only])
       export_epub = [nil, "mobi", "epub"].include?(options[:only])
