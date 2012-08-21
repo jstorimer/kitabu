@@ -69,6 +69,19 @@ module Kitabu
 
       code = Highlight.apply(code, language)
 
+      # file name
+      if meta[:file] && Dependency.pygments_rb?
+        html = Nokogiri::HTML(code)
+        highlight = html.at_css('.highlight')
+
+        file_name = Nokogiri::XML::Node.new "span", html
+        file_name['class'] = 'filename'
+        file_name.content = "./code/#{meta[:file]}"
+        highlight.children.first.add_previous_sibling(file_name)
+
+        code = html.css('body').inner_html
+      end
+      
       # escape for textile
       code = %[<notextile>#{code}</notextile>] if format == :textile
       code
