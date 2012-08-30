@@ -92,7 +92,7 @@ module Kitabu
     #
     def process_range(code)
       starts, ends = meta[:reference].split(",").collect(&:to_i)
-      code = StringIO.new(code).readlines[starts-1..ends-1].join("\n").strip_heredoc.chomp
+      code = StringIO.new(code).readlines[starts-1..ends-1].join.strip_heredoc.chomp
     end
 
     # Process block name as in <tt>@@@ ruby some_file.rb#some_block @@@</tt>.
