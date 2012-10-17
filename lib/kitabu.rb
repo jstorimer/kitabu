@@ -52,8 +52,7 @@ module Kitabu
   autoload :Syntax,     "kitabu/syntax"
   autoload :Stream,     "kitabu/stream"
   autoload :Dependency, "kitabu/dependency"
-  autoload :Callout,    "kitabu/callout"
-  autoload :Markup,     "kitabu/markup"
+  autoload :Stats,      "kitabu/stats"
 
   def self.config(root_dir = nil)
     root_dir ||= Pathname.new(Dir.pwd)
