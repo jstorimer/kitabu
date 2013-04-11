@@ -74,10 +74,12 @@ module Kitabu
         html = Nokogiri::HTML(code)
         highlight = html.at_css('.highlight')
 
-        file_name = Nokogiri::XML::Node.new "span", html
-        file_name['class'] = 'filename'
-        file_name.content = "# ./code/#{meta[:file]}"
-        highlight.children.first.add_previous_sibling(file_name)
+        unless meta[:type] == :range
+          file_name = Nokogiri::XML::Node.new "span", html
+          file_name['class'] = 'filename'
+          file_name.content = "# ./code/#{meta[:file]}"
+          highlight.children.first.add_previous_sibling(file_name)
+        end
 
         code = html.css('body').inner_html
       end
