@@ -7,7 +7,7 @@ module Kitabu
             :index    => index,
             :filename => "section_#{index}.html",
             :filepath => tmp_dir.join("section_#{index}.html").to_s,
-            :html     => Nokogiri::HTML(chapter.inner_html)
+            :html     => Nokogiri::HTML::fragment(chapter.inner_html)
           })
         end
       end
@@ -87,7 +87,7 @@ module Kitabu
           # Save file to disk.
           #
           File.open(section.filepath, "w") do |file|
-            file << render_chapter(section.html.css("body").inner_html)
+            file << render_chapter(section.html.css("body").to_xhtml)
           end
         end
       end
