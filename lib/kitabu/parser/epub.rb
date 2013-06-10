@@ -87,7 +87,7 @@ module Kitabu
           # Save file to disk.
           #
           File.open(section.filepath, "w") do |file|
-            file << render_chapter(section.html.css("body").to_xhtml)
+            file << render_chapter(section.html.to_xhtml)
           end
         end
       end
