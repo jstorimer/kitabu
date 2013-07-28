@@ -28,7 +28,8 @@ module Kitabu
         epub.date         config[:published_at]
         epub.uid          config[:uid]
         epub.identifier   config[:identifier][:id], :scheme => config[:identifier][:type]
-        epub.cover_page   cover_image
+        epub.cover_page   cover_page
+        epub.cover_image  cover_image
 
         write_sections!
         write_toc!
@@ -101,7 +102,6 @@ module Kitabu
         @assets ||= begin
           assets = Dir[root_dir.join("templates/epub/*.css")]
           assets += Dir[root_dir.join("images/**/*.{jpg,png,gif}")]
-          assets << cover_image if cover_image
           assets
         end
       end
@@ -109,6 +109,10 @@ module Kitabu
       def cover_image
         path = Dir[root_dir.join("templates/epub/cover.{jpg,png,gif}").to_s].first
         return path if path && File.exist?(path)
+      end
+      
+      def cover_page
+        root_dir.join("templates/epub/cover.xhtml")
       end
 
       def navigation
