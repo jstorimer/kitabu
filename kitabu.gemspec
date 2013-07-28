@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rdiscount",                 "~> 1.6"
   s.add_dependency "i18n",                      "~> 0.5"
   s.add_dependency "thor",                      "~> 0.14"
-  s.add_dependency "eeepub-with-cover-support", "~> 0.8"
+  s.add_dependency "eeepub-with-cover-support", "~> 0.8.8"
   s.add_dependency "watchr",                    "~> 0.7"
   s.add_dependency "notifier",                  "~> 0.1"
   s.add_dependency "coderay"
